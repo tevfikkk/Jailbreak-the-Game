@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Run();
+        FlipPlayer();
     }
 
     // Input System
@@ -29,6 +30,16 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.Get<Vector2>();
         Debug.Log($"Move Input: {moveInput}");
+    }
+
+    // Flip Player
+    void FlipPlayer()
+    {
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
+        if (playerHasHorizontalSpeed)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(myRb.velocity.x), 1f);
+        }
     }
 
     // Run Method to move the player
