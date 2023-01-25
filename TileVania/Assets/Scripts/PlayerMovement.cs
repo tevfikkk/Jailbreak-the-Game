@@ -12,10 +12,12 @@ public class PlayerMovement : MonoBehaviour
     // References 
     Vector2 moveInput;
     Rigidbody2D myRb;
+    Animator myAnim;
 
     void Start()
     {
         myRb = GetComponent<Rigidbody2D>() as Rigidbody2D;
+        myAnim = GetComponent<Animator>() as Animator;
     }
 
 
@@ -45,7 +47,12 @@ public class PlayerMovement : MonoBehaviour
     // Run Method to move the player
     void Run()
     {
+        bool isRunning = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
+
         Vector2 playerVelocity = new Vector2(moveInput.x * moveSpeed, myRb.velocity.y);
         myRb.velocity = playerVelocity;
+
+        myAnim.SetBool("isRunning", isRunning);
+
     }
 }
