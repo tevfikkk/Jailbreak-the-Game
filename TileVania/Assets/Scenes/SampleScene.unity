@@ -1291,7 +1291,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5973,6 +5973,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2019614497, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}
+      propertyPath: m_GravityScale
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019614497, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3314518966040704165, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6022,8 +6030,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8017033831340767169, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}
+      propertyPath: jumpSpeed
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017033831340767169, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}
       propertyPath: moveSpeed
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22352a0a450d64e40a651ff4c491ba51, type: 3}

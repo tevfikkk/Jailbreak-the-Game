@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Variables
     [SerializeField] float moveSpeed = 3.5f;
+    [SerializeField] float jumpSpeed = 15f;
 
     // References 
     Vector2 moveInput;
@@ -32,6 +34,20 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.Get<Vector2>();
         Debug.Log($"Move Input: {moveInput}");
+    }
+
+    void OnJump(InputValue context)
+    {
+        if (context.isPressed)
+        {
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+        myRb.velocity = new Vector2(myRb.velocity.x, jumpSpeed);
+
     }
 
     // Flip Player
