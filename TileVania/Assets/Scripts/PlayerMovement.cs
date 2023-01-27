@@ -8,75 +8,93 @@ public class PlayerMovement : MonoBehaviour
 {
 
     // Variables
-    [SerializeField] float moveSpeed = 3.5f;
-    [SerializeField] float jumpSpeed = 15f;
-    float moveInput;
-    bool isFacingRight = true;
+    [SerializeField] float moveSpeed = 5.5f;
+    [SerializeField] float jumpSpeed = 20f;
 
     // References 
+    Vector2 moveInput;
     Rigidbody2D myRb;
     Animator myAnim;
     CapsuleCollider2D myCollider;
+    float gravityScaleAtStart;
 
     void Start()
     {
         myRb = GetComponent<Rigidbody2D>() as Rigidbody2D;
         myAnim = GetComponent<Animator>() as Animator;
         myCollider = GetComponent<CapsuleCollider2D>() as CapsuleCollider2D;
+        gravityScaleAtStart = myRb.gravityScale;
     }
 
 
     void Update()
     {
-        if (moveInput > 0f && !isFacingRight)
-        {
-            FlipPlayer();
-        }
-        else if (moveInput < 0f && isFacingRight)
-        {
-            FlipPlayer();
-        }
+        Run();
+        FlipPlayer();
+        ClimbLadder();
     }
 
-    void FixedUpdate() => Run();
-
     // Input System
-    public void Move(InputAction.CallbackContext context)
+    void OnMove(InputValue context)
     {
-        moveInput = context.ReadValue<Vector2>().x;
+        moveInput = context.Get<Vector2>();
         Debug.Log($"Move Input: {moveInput}");
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    void OnJump(InputValue context)
     {
-        if (context.performed && IsGrounded())
+        if (context.isPressed)
         {
-            myRb.velocity = new Vector2(myRb.velocity.x, jumpSpeed);
-        }
-
-        if (context.canceled && myRb.velocity.y > 0)
-        {
-            myRb.velocity = new Vector2(myRb.velocity.x, myRb.velocity.y * 0.5f);
+            Jump();
         }
     }
 
-    bool IsGrounded() => myCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+    void Jump()
+    {
+        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            return;
+        }
+
+        myRb.velocity = new Vector2(myRb.velocity.x, jumpSpeed);
+    }
 
     // Flip Player
     void FlipPlayer()
     {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
+        if (playerHasHorizontalSpeed)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(myRb.velocity.x), 1f);
+        }
     }
 
+    // Run Method to move the player
     void Run()
     {
-        bool playerHasHorizontalSpeed = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
+        bool isRunning = Mathf.Abs(myRb.velocity.x) > Mathf.Epsilon;
 
-        myAnim.SetBool("isRunning", playerHasHorizontalSpeed);
+        Vector2 playerVelocity = new Vector2(moveInput.x * moveSpeed, myRb.velocity.y);
+        myRb.velocity = playerVelocity;
 
-        myRb.velocity = new Vector2(moveInput * moveSpeed, myRb.velocity.y);
+        myAnim.SetBool("isRunning", isRunning);
+
+    }
+
+    void ClimbLadder()
+    {
+        if (!myCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            myRb.gravityScale = gravityScaleAtStart;
+            myAnim.SetBool("isClimbing", false);
+            return;
+        }
+
+        Vector2 climbVelocity = new Vector2(myRb.velocity.x, moveInput.y * moveSpeed);
+        myRb.velocity = climbVelocity;
+        myRb.gravityScale = 0f;
+
+        bool isClimbing = Mathf.Abs(myRb.velocity.y) > Mathf.Epsilon;
+        myAnim.SetBool("isClimbing", isClimbing);
     }
 }
