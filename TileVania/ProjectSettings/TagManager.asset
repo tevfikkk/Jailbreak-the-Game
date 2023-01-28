@@ -18,7 +18,7 @@ TagManager:
   - Background
   - Bouncing
   - Enemies
-  - 
+  - Hazards
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Midground
     uniqueID: 1035766951
+    locked: 0
+  - name: Hazards
+    uniqueID: 3975785551
     locked: 0
   - name: Climbing
     uniqueID: 228641603
