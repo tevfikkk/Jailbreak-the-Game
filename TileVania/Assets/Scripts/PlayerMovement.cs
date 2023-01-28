@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 20f;
     bool isAlive = true;
     [SerializeField] Vector2 deathKick = new Vector2(25f, 25f);
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
 
     // References 
     Vector2 moveInput;
@@ -40,12 +42,18 @@ public class PlayerMovement : MonoBehaviour
         Die();
     }
 
+    void OnFire(InputValue context)
+    {
+        if (!isAlive) { return; }
+        Instantiate(bullet, gun.position, transform.rotation);
+    }
+
     // Input System
     void OnMove(InputValue context)
     {
         if (!isAlive) { return; }
         moveInput = context.Get<Vector2>();
-        Debug.Log($"Move Input: {moveInput}");
+        // Debug.Log($"Move Input: {moveInput}");
     }
 
     void OnJump(InputValue context)
@@ -108,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards")))
         {
             isAlive = false;
             myAnim.SetTrigger("Dying");
