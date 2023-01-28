@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62f0adf18283a445927036eb7742f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.5
+  moveSpeed: 7
   jumpSpeed: 20
   deathKick: {x: 25, y: 25}
   bullet: {fileID: 7530696499172582274, guid: f678432353e6096459cb0cf133515b6e, type: 3}
