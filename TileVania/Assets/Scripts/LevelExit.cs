@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
-    [SerializeField] float levelLoadDelay = 1.5f;
+    [SerializeField] float levelLoadDelay = .75f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
