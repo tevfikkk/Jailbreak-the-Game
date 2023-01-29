@@ -47,7 +47,7 @@ public class GameSession : MonoBehaviour
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
-        scoreText.text = score.ToString();
+        scoreText.text = pointsToAdd.ToString();
     }
 
     void TakeLife()
@@ -63,7 +63,7 @@ public class GameSession : MonoBehaviour
     void ResetGameSession()
     {
         FindObjectOfType<ScenePersist>().ResetScenePersist();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(4);
         Destroy(gameObject);
     }
 }
