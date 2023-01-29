@@ -7,7 +7,13 @@ public class LevelExit : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 1.5f;
 
-    void OnTriggerEnter2D(Collider2D other) => StartCoroutine(LoadNextLevel());
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            StartCoroutine(LoadNextLevel());
+        }
+    }
 
     IEnumerator LoadNextLevel()
     {
