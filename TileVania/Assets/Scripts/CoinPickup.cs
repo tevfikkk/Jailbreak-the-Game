@@ -19,8 +19,8 @@ public class CoinPickup : MonoBehaviour
 
             FindObjectOfType<GameSession>().AddToScore(pointsForCoindPickup);
 
-            gameObject.SetActive(false);
             StartCoroutine(DestroyCoin());
+            gameObject.SetActive(false);
         }
     }
 
