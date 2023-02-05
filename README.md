@@ -2,7 +2,8 @@
 
 ## Written in C# and used Unity Framework
 
-### To download the game -> https://tevfikhoglu.itch.io/jailbreak
+### You can download the game through the link below 
+https://tevfikhoglu.itch.io/jailbreak
 
 ![image](https://user-images.githubusercontent.com/79837579/216831973-1276d2aa-a707-46b8-bcac-33a484be8609.png)
 
